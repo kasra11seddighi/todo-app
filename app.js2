@@ -1,0 +1,62 @@
+const openmodalButton = document.querySelector(".open-modal-button");
+const modalBox = document.querySelector(".modal-screen");
+const cancelButton = document.querySelector(".cancel");
+const crossButton = document.querySelector(".size-6");
+const createButton = document.querySelector(".create");
+const input = document.querySelector(".input");
+const todosContainer = document.querySelector(".todos-container");
+
+function showModal () {
+modalBox.classList.remove("hidden")
+} //"برای نشان دادن صفحه ی  "اضافه کردن کار ها
+
+function removeModal () {
+    modalBox.classList.add("hidden")
+} //  "برای پنهان کردن صفحه ی "اضافه کردن کار ها 
+
+function addTodo () {
+let inputTodo =input.value; 
+
+const articlesElem =document.createElement("article");
+articlesElem.className = "todo";
+
+const todoDataDiv = document.createElement("div");
+todoDataDiv.className = "todo-data";
+
+const todoTitleElem = document.createElement("p");
+todoTitleElem.innerHTML = inputTodo;
+
+const todoButtonsDiv = document.createElement("div");
+todoButtonsDiv.className = "todo-buttons";
+
+const removeTodoBtn = document.createElement("button");
+removeTodoBtn.innerHTML = "حذف";
+removeTodoBtn.className = "delete";
+
+removeTodoBtn.addEventListener("click" , function (event) {
+const removeDiv = event.target.parentElement.parentElement
+removeDiv.remove();
+});
+
+todoDataDiv.append(todoTitleElem);
+todoButtonsDiv.append(removeTodoBtn);
+articlesElem.append(todoDataDiv);
+articlesElem.append(todoButtonsDiv);
+todosContainer.append(articlesElem);
+
+removeModal();
+input.value= "";
+} // برای اضافه کردن تودو ها 
+
+function keydown1 (event) 
+{
+if(event.key === "Enter") {
+    addTodo()
+}
+} // دکمه ی اینتر برای اضافه کردن تودو ها به لیست
+
+openmodalButton.addEventListener("click" , showModal);
+cancelButton.addEventListener("click" , removeModal);
+crossButton.addEventListener("click" , removeModal);
+createButton.addEventListener("click", addTodo);
+document.body.addEventListener("keydown" , keydown1 );
